@@ -10,7 +10,7 @@ PLATE_CPP = $(SOURCE_DIR)/plate/plate.cpp $(SOURCE_DIR)/plate/plate_discret.cpp 
 UTILS_CPP = $(SOURCE_DIR)/utils/boundary.cpp $(SOURCE_DIR)/utils/utils.cpp
 SOLVER_CPP = $(SOURCE_DIR)/solver/gauss_seidel.cpp
 
-SOURCES=$(BOUND_COND_CPP) $(PLATE_CPP) $(UTILS_CPP) $(SOLVER_CPP) $(SOURCE_DIR)/main.cpp
+SOURCES=$(BOUND_COND_CPP) $(PLATE_CPP) $(UTILS_CPP) $(SOLVER_CPP) $(SOURCE_DIR)/main.cpp $(SOURCE_DIR)/describe_task.cpp
 OBJECTS=$(SOURCES:.cpp=.o)
 
 all: mkr
