@@ -5,6 +5,7 @@
 #include "../include/Plate.h"
 #include "../include/PlateDiscret.h"
 #include "../include/Solver.h"
+#include "../include/Utils.h"
 
 #define WIDTH 12
 #define HEIGHT 4
@@ -14,6 +15,25 @@ using namespace std;
 Plate* describe_task(const float w, const float h, float initial);
 Solver* create_solver(const float eps);
 void solve(const float dx, const float dy, const float dt, const float t, Plate* plate, Solver* solver);
+
+
+void start_calculate(Properties prop) {
+    /*
+     * Создание пластины
+     */
+    Plate* plate = describe_task(prop.w, prop.h, prop.initial);
+
+    /**
+     * Создаем решатель
+     */
+    Solver* solver = create_solver(prop.eps);
+
+    /**
+     * Решаем задачу
+     */
+    solve(prop.dx, prop.dy, prop.dt, prop.t, plate, solver);
+};
+
 
 int main(int argc, char** argv) {
     
@@ -39,18 +59,13 @@ int main(int argc, char** argv) {
     //начальное значение
     float initial = 10;
 
-    /*
-     * Создание пластины
-     */
-    Plate* plate = describe_task(w, h, initial);
+    Properties prop = {
+        w, h,
+        dx, dy, dt,
+        initial,
+        eps,
+        t
+    };
 
-    /**
-     * Создаем решатель
-     */
-    Solver* solver = create_solver(eps);
-
-    /**
-     * Решаем задачу
-     */
-    solve(dx, dy, dt, t, plate, solver);
+    start_calculate(prop);
 };

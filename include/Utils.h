@@ -6,6 +6,21 @@
 
 using namespace std;
 
+struct Properties {
+    float w;
+    float h;
+
+    float dx;
+    float dy;
+    float dt;
+
+    float initial;
+
+    float eps;
+
+    float t;
+};
+
 /**
  * @enum Направление вектора вдоль оси
  */

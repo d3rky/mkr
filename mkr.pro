@@ -25,7 +25,8 @@ HEADERS += include/AbstractBoundaryCondition.h \
            include/Plate.h \
            include/PlateDiscret.h \
            include/Solver.h \
-           include/Utils.h
+           include/Utils.h \
+           include/ui/MainWindow.h
 SOURCES += src/describe_task.cpp \
            src/main_qt.cpp \
            src/boundary_conditions/DerichleBoundaryCondition.cpp \
@@ -36,4 +37,5 @@ SOURCES += src/describe_task.cpp \
            src/solver/gauss_seidel.cpp \
            src/utils/boundary.cpp \
            src/utils/utils.cpp \
-           src/utils/console/solve_task.cpp
+           src/utils/console/solve_task.cpp \
+           src/ui/main_window.cpp
