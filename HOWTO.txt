@@ -1,0 +1,28 @@
+STATEMENT OF THE TASK
+=====================
+
+Before building the code, describe your task in main.cpp:
+ - set descretize steps,
+ - create boundary conditions,
+ - place boundary conditions to the plate,
+ - create a solver you need.
+
+BUILD THE CODE
+==============
+
+Build the code using make utility:
+    make
+
+For building debug code use:
+    make debug
+
+RUNNING
+=======
+
+After building file build/mkr would be created. Run programm:
+    build/mkr
+
+After that you'll have a file build/default.output with a temperature of your
+matrice.
+
+In directory src there is a Maxima script (src/draw_plot.wxm) to create a diagram.

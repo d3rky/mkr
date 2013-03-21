@@ -16,6 +16,8 @@ using namespace std;
 
 int main(int argc, char** argv) {
     
+    /*Начало описания задачи*/
+
     //точность решения слау
     const float eps = 1E-6;
 
@@ -95,6 +97,8 @@ int main(int argc, char** argv) {
     plate->add_condition(up_left_cond);
     plate->add_condition(left_cond);
     plate->add_condition(right_cond);
+
+    /*Конец описания задачи*/
 
     cout<<"OK"<<endl;
 

@@ -1,0 +1,5 @@
+TODO LIST
+=========
+
+1. Make an abstract class for MkrPoint and two child classes(first for internal points,
+second for boundary points), which will have an interface to get difference scheme.
