@@ -23,8 +23,7 @@ class NeumanBoundaryCondition: public AbstractBoundaryCondition {
          *
          * @param k {float} коэффициент k линейной функции
          * @param b {float} коэффициент b линейной функции (kx+b)
-         * @param normal {const int} нормаль
-         * @param direction {const int} направление вдоль нормали
+         * @param direction {enum: Utils.h/Direction} направление вдоль нормали
          */
         NeumanBoundaryCondition(
             float k, 

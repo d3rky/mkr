@@ -57,7 +57,7 @@ class MkrPoint {
          * @param y {const float} координата y точки
          * @param i {const int} номер столбца
          * @param j {const int} номер строки
-         * @param boundary_type {const int} тип границы (UP, DOWN, etc.)
+         * @param boundary_type {enum: Plate.h/PlateSide} тип границы (UP, DOWN, etc.)
          * @param initial_cond {float} начальное условие
          * @param bound_cond {AbstractBoundaryCondition*} граничное условие
          * @param plate {PlateDiscret*} пластина, к которой принадлежит точка

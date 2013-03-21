@@ -28,6 +28,7 @@ PlateDiscret::PlateDiscret(
         const float dt
 ): width(plate->get_width()), height(plate->get_height()), dx(dx), dy(dy), dt(dt) {
 
+    //Определяем количество точек по x и y в зависимости от шага дискретизации
     int points_in_row = this->get_num_of_points(this->width, dx),
         points_in_col = this->get_num_of_points(this->height, dy);
 
@@ -37,23 +38,24 @@ PlateDiscret::PlateDiscret(
     float curr_step_x=1.0,
           curr_step_y=1.0;
 
-
+    //создаем точки
     for(int i=0; i<points_in_col; i++) {
 
         vector<MkrPoint*> points_row;
 
         for(int j=0; j<points_in_row; j++) {
 
-            //check if point is a boundary
+            //Проверяем, является ли точка граничной
             int is_boundary = plate->is_boundary_point(curr_step_x, dx, curr_step_y, dy);
-            //boundary condition for this point
             AbstractBoundaryCondition* cond = 0;
             float initial = 0;
 
+            //Если точка граничная, то задаем граничное условие
             if(is_boundary) {
                 cond = plate->get_condition(curr_step_x, dx, curr_step_y, dy);
             }
             
+            //Задаем начальное условие
             initial = plate->get_initial_cond();
 
             points_row.push_back(new MkrPoint(
@@ -93,6 +95,7 @@ Matrix* PlateDiscret::get_matrix() {
     );
     vector<vector<MkrPoint*> >::iterator it = this->points.begin();
 
+    //коэффициенты dx^2*dx^2, dt*dy^2, dt*dx^2
     float dx2dy2 = pow(this->dx, 2)*pow(this->dy, 2),
         dtdy2 = this->dt*pow(this->dy, 2),
         dtdx2 = this->dt*pow(this->dx, 2);
@@ -105,6 +108,8 @@ Matrix* PlateDiscret::get_matrix() {
             vector<MatrixElement> matrix_part; 
             MatrixElement matrix_element;
 
+            //Если точка является граничной, то берем разностную схему из граничного условия,
+            //Если нет, то формируем разностную схему исходя из уравнения теплопроводности
             if((*p_it)->get_boundary_type()) {
                 matrix_part = (*p_it)->get_boundary_cond_value(this->dt);
             } else {

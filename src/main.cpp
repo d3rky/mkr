@@ -74,27 +74,35 @@ int main(int argc, char** argv) {
     cout<<"OK"<<endl;
 
     cout<<endl<<"Creating plate...";
+
     //Создаем объект-пластину
     Plate* plate = new Plate(w, h, initial);
+
     cout<<"OK"<<endl;
 
     cout<<endl<<"Creating solver...";
+
     //Создаем решатель
     Solver* solver = new GaussSeidel(eps);
+
     cout<<"OK"<<endl;
 
     cout<<endl<<"Adding conditions to plate...";
+
     //Добавляем к ней граничные условия
     plate->add_condition(down_cond);
     plate->add_condition(up_right_cond);
     plate->add_condition(up_left_cond);
     plate->add_condition(left_cond);
     plate->add_condition(right_cond);
+
     cout<<"OK"<<endl;
 
     cout<<endl<<"Discretizing plate...";
+
     //Разбиваем пластину на узлы
     PlateDiscret* plate_discret = plate->descretize(dx, dy, dt);
+
     cout<<"OK"<<endl;
 
     cout<<endl<<"Starting solving..."<<endl;
@@ -103,6 +111,7 @@ int main(int argc, char** argv) {
     //Из текущей модели получаем матрицу, которую и будем решать
     Matrix* matrix = plate_discret->get_matrix();
 
+    //Решаем уравнение
     for(float curr_t=0.0; curr_t<t; curr_t+=dt) {
         result = solver->solve(matrix);
 
@@ -125,5 +134,4 @@ int main(int argc, char** argv) {
     plate_discret->print(output);
 
     output.close();
-
 };
