@@ -12,7 +12,7 @@ DEPENDPATH += . \
               src/plate \
               src/solver \
               src/utils \
-              src/utils/console
+              src/utils/qt
 INCLUDEPATH += . include
 
 # Input
@@ -26,7 +26,8 @@ HEADERS += include/AbstractBoundaryCondition.h \
            include/PlateDiscret.h \
            include/Solver.h \
            include/Utils.h \
-           include/ui/MainWindow.h
+           include/ui/MainWindow.h \
+           include/ui/ResultEvent.h
 SOURCES += src/describe_task.cpp \
            src/main_qt.cpp \
            src/boundary_conditions/DerichleBoundaryCondition.cpp \
@@ -37,5 +38,5 @@ SOURCES += src/describe_task.cpp \
            src/solver/gauss_seidel.cpp \
            src/utils/boundary.cpp \
            src/utils/utils.cpp \
-           src/utils/console/solve_task.cpp \
+           src/utils/qt/solve_task.cpp \
            src/ui/main_window.cpp
