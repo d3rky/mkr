@@ -76,7 +76,7 @@ int main(int argc, char** argv) {
      * Gui
      */
     QApplication app(argc, argv);
-    MainWindow* main_window = new MainWindow(prop);
+    MainWindow* main_window = MainWindow::instance(prop);
 
     main_window->show();
 

@@ -1,4 +1,5 @@
 #include <iostream>
+#include "math.h"
 
 #include <QGridLayout>
 
@@ -12,7 +13,8 @@ void start_calculate(Properties prop);
 /**
  * constructors
  */
-MainWindow::MainWindow(Properties prop, QWidget* parent) : QWidget(parent) {
+MainWindow::MainWindow(Properties prop, QWidget* parent) 
+: QWidget(parent) {
     this->prop = {
         prop.w, prop.h,
         prop.dx, prop.dy, prop.dt,
@@ -26,9 +28,9 @@ MainWindow::MainWindow(Properties prop, QWidget* parent) : QWidget(parent) {
     number = new QLabel();
     draw = new QLabel();
 
-    number->setMinimumSize(100, 100);
+    number->setMinimumSize(400, 100);
     number->setFrameStyle(QFrame::Box);
-    draw->setMinimumSize(100, 100);
+    draw->setMinimumSize(400, 100);
     draw->setFrameStyle(QFrame::Box);
 
     painter = new QPainter(draw);
@@ -56,8 +58,20 @@ void MainWindow::calculate_button_clicked() {
 /**
  * public functions
  */
-void update_values(Matrix* matr) {
-    ;
+void MainWindow::update_values(Matrix* matr) {
+    cout<<"Yeah, event updated";
 };
 
+bool MainWindow::event(QEvent* event) {
+    if(event->type() == 1200) {
+        ResultEvent* result_event = static_cast<ResultEvent* >(event);
 
+        update_values(result_event->get_matr());
+
+        return true;
+    }
+
+    return QWidget::event(event);
+};
+
+MainWindow* MainWindow::m_instance = 0;
