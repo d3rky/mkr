@@ -17,3 +17,9 @@ The equation is solved implicitly.
 You can also set initial condition of the set. There are two types of boundary condition:
  - Derichle boundary condition. It is set as T = k*t + b,
  - Neuman boundary condition. dT/dn = k*t + b.
+ - Balance boundary condition dT/dn = T
+
+DEPENDING
+=========
+
+Now it depends only on Qt 4.8

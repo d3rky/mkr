@@ -13,14 +13,18 @@ BUILD THE CODE
 Build the code using make utility:
     make
 
-For building debug code use:
-    make debug
+For building console app build/mkr:
+    make -f Makefile_console
+
+For building qt app build/mkr_qt:
+    make
+
 
 RUNNING
 =======
 
-After building file build/mkr would be created. Run programm:
-    build/mkr
+After building file build/mkr or build/mkr_qt would be created. Run programm:
+    build/mkr or build/mkr_qt
 
 After that you'll have a file build/default.output with a temperature of your
 matrice.
