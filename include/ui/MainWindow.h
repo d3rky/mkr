@@ -6,9 +6,9 @@
 
 #include <QWidget>
 #include <QPushButton>
-#include <QPainter>
-#include <QLabel>
+#include <QGraphicsView>
 #include <QEvent>
+#include <QRgb>
 
 #include "../Utils.h"
 
@@ -20,16 +20,20 @@ class MainWindow : public QWidget {
 
     private:
         QPushButton* calculate_button;
-        QPainter* painter;
 
-        QLabel* number;
-        QLabel* draw;
+        QGraphicsView* draw;
 
         Properties prop;
 
+        static MainWindow* m_instance;
+
         MainWindow(Properties prop, QWidget* parent=0);
 
-        static MainWindow* m_instance;
+        void update_draw(Matrix* matr);
+        void update_number(Matrix* matr);
+
+        QColor* get_rgb(float value);
+
     public:
         void update_values(Matrix* matr);
 

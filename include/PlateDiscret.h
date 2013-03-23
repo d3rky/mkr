@@ -99,9 +99,15 @@ class PlateDiscret {
         /**
          * Из модели получим матрицу
          *
-         * @return {Matrix}
+         * @return {Matrix*}
          */
         Matrix* get_matrix();
+        /**
+         * Из модели получим матрицу со значением температу в узлах
+         *
+         * @return {Matrix*}
+         */
+        Matrix* get_initial_matrix();
 
         /**
          * Изменяем начальное значение температуры для узлов пластины

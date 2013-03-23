@@ -46,6 +46,7 @@ void solve(const float dx, const float dy, const float dt, const float t, Plate*
 
     //Из текущей модели получаем матрицу, которую и будем решать
     Matrix* matrix = plate_discret->get_matrix();
+    Matrix* initial_matr;
 
     //Решаем уравнение
     for(float curr_t=0.0; curr_t<t; curr_t+=dt) {
@@ -54,8 +55,9 @@ void solve(const float dx, const float dy, const float dt, const float t, Plate*
         plate_discret->set_initial_values(result);
 
         matrix = plate_discret->get_matrix();
+        initial_matr = plate_discret->get_initial_matrix();
 
-        QApplication::sendEvent(main_window, new ResultEvent(matrix));
+        QApplication::sendEvent(main_window, new ResultEvent(initial_matr));
 
         cout<<endl;
         cout<<"/////////////////////////////////////////////////////////////////////"<<endl;

@@ -206,3 +206,27 @@ void PlateDiscret::print(ostream& stream) {
     }
 
 };
+
+Matrix* PlateDiscret::get_initial_matrix() {
+    Matrix* matr = new Matrix(this->get_i(), this->get_j());
+    MatrixElement matrix_element;
+
+    vector<vector<MkrPoint*> >::reverse_iterator it = this->points.rbegin();
+
+    for(; it != this->points.rend(); ++it) {
+        for(vector<MkrPoint*>::iterator p_it=(*it).begin();
+            p_it != it->end();
+            ++p_it
+        ) {
+            matrix_element = {
+                (*p_it)->get_j(),
+                (*p_it)->get_i(),
+                (*p_it)->get_initial_cond()
+            };
+
+            matr->add(matrix_element);
+        }
+    }
+
+    return matr;
+};
