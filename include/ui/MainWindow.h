@@ -30,7 +30,6 @@ class MainWindow : public QWidget {
         MainWindow(Properties prop, QWidget* parent=0);
 
         void update_draw(Matrix* matr);
-        void update_number(Matrix* matr);
 
         QColor* get_rgb(float value);
 

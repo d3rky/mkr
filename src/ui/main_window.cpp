@@ -31,32 +31,6 @@ QColor* MainWindow::get_rgb(float value) {
 };
 
 void MainWindow::update_draw(Matrix* matr) {
-    int rect_width = 400/matr->get_width(),
-        rect_height = 100/matr->get_height();
-
-    float** matr_values = matr->get_matrix();
-
-    QGraphicsScene* scene = new QGraphicsScene();
-
-    for(int j=0; j<matr->get_height(); j++) {
-        for(int i=0; i<matr->get_width(); i++) {
-            QColor* rgb = this->get_rgb(matr_values[j][i]);
-
-            scene->addRect(
-                i*rect_width, 
-                j*rect_height, 
-                rect_width, 
-                rect_height,
-                QPen(),
-                QBrush(*rgb)
-            );
-        }
-    }
-
-    draw->setScene(scene);
-};
-
-void MainWindow::update_number(Matrix* matr) {
     int rect_width = 800/matr->get_width(),
         rect_height = 200/matr->get_height();
 
@@ -64,13 +38,13 @@ void MainWindow::update_number(Matrix* matr) {
 
     QGraphicsScene* scene = new QGraphicsScene();
 
-    for(int j=0; j<matr->get_height(); j++) {
+    for(int j=matr->get_height()-1; j>=0; j--) {
         for(int i=0; i<matr->get_width(); i++) {
             QColor* rgb = this->get_rgb(matr_values[j][i]);
 
             scene->addRect(
                 i*rect_width, 
-                j*rect_height, 
+                (matr->get_height()-j+1)*rect_height, 
                 rect_width, 
                 rect_height,
                 QPen(),
@@ -84,7 +58,7 @@ void MainWindow::update_number(Matrix* matr) {
                     10
                 )
             );
-            text->setPos(i*rect_width, j*rect_height);
+            text->setPos(i*rect_width, (matr->get_height()-j+1)*rect_height);
         }
     }
 
@@ -135,7 +109,6 @@ void MainWindow::calculate_button_clicked() {
  */
 void MainWindow::update_values(Matrix* matr) {
     update_draw(matr);
-    update_number(matr);
 };
 
 bool MainWindow::event(QEvent* event) {
