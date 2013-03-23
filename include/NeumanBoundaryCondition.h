@@ -32,6 +32,7 @@ class NeumanBoundaryCondition: public AbstractBoundaryCondition {
         );
 
         /**
+         * @param point {MkrPoint*} точка, к которой приложено граничное условие
          * @param dt {const float} шаг дискретизации по времени
          *
          * @return {float}

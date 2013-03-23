@@ -19,6 +19,7 @@ INCLUDEPATH += . include
 HEADERS += include/AbstractBoundaryCondition.h \
            include/Boundary.h \
            include/DerichleBoundaryCondition.h \
+           include/BalanceBoundaryCondition.h \
            include/GaussSeidel.h \
            include/MkrPoint.h \
            include/NeumanBoundaryCondition.h \
@@ -32,6 +33,7 @@ SOURCES += src/describe_task.cpp \
            src/main_qt.cpp \
            src/boundary_conditions/DerichleBoundaryCondition.cpp \
            src/boundary_conditions/NeumanBoundaryCondition.cpp \
+           src/boundary_conditions/BalanceBoundaryCondition.cpp \
            src/plate/mkrpoint.cpp \
            src/plate/plate.cpp \
            src/plate/plate_discret.cpp \
