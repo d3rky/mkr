@@ -1,7 +1,7 @@
 STATEMENT OF THE TASK
 =====================
 
-Before building the code, describe your task in main.cpp:
+Before building the code, describe your task in describe_task.cpp:
  - set descretize steps,
  - create boundary conditions,
  - place boundary conditions to the plate,
