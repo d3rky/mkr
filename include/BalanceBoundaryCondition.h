@@ -9,22 +9,14 @@
  * @class Класс граничных условий 3-его рода
  */
 class BalanceBoundaryCondition: public AbstractBoundaryCondition {
-    
-    protected:
-
-        /**
-         * Направление вдоль нормали
-         */
-        const int direction;
 
     public:
 
         /**
          * @constructor
          *
-         * @param direction {enum: Utils.h/Direction} направление вдоль нормали
          */
-        BalanceBoundaryCondition(const int direction);
+        BalanceBoundaryCondition();
 
         virtual vector<MatrixElement> get_value(MkrPoint* point, const float dt);
 

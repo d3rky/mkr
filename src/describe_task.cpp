@@ -4,6 +4,7 @@
 #include "../include/Plate.h"
 #include "../include/DerichleBoundaryCondition.h"
 #include "../include/NeumanBoundaryCondition.h"
+#include "../include/BalanceBoundaryCondition.h"
 #include "../include/Boundary.h"
 #include "../include/GaussSeidel.h"
 

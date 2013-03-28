@@ -63,10 +63,18 @@ vector<MatrixElement> NeumanBoundaryCondition::get_value(MkrPoint* point, const 
     };
     result.push_back(elem);
 
+    float dn;
+
+    if(x_offset != 0.0) {
+        dn = point->get_plate()->get_dx();
+    } else {
+        dn = point->get_plate()->get_dy();
+    }
+
     elem = {
         -1,
         point->get_plate()->get_point_num(point->get_i(), point->get_j()),
-        (this->k*dt + this->b)*this->direction*point->get_plate()->get_dx()
+        (this->k*dt + this->b)*this->direction*dn
     };
     result.push_back(elem);
 

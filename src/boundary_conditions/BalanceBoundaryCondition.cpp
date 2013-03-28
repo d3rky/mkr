@@ -4,9 +4,7 @@
 /**
  * constructors
  */
-BalanceBoundaryCondition::BalanceBoundaryCondition(
-    const int direction
-): AbstractBoundaryCondition(0, 0), direction(direction) {
+BalanceBoundaryCondition::BalanceBoundaryCondition(): AbstractBoundaryCondition(0, 0) {
     ;  
 };
 
@@ -20,13 +18,6 @@ vector<MatrixElement> BalanceBoundaryCondition::get_value(MkrPoint* point, const
 
     int x_offset = 0;
     int y_offset = 0;
-
-    elem = {
-        point->get_plate()->get_point_num(point->get_j(), point->get_i()),
-        point->get_plate()->get_point_num(point->get_j(), point->get_i()),
-        1.0*this->direction
-    };
-    result.push_back(elem);
 
     switch (point->get_boundary_type()) {
         case UP:
@@ -43,24 +34,32 @@ vector<MatrixElement> BalanceBoundaryCondition::get_value(MkrPoint* point, const
             break;
     };
 
+    float dn;
+
+    if(x_offset != 0) {
+        dn = point->get_plate()->get_dx();
+    } else {
+        dn = point->get_plate()->get_dy();
+    }
+
     elem = {
-        point->get_plate()->get_point_num(point->get_j(), point->get_i()),
-        point->get_plate()->get_point_num(point->get_j()+y_offset, point->get_i()+x_offset),
-        -1.0*this->direction
+        point->get_plate()->get_point_num(point->get_i(), point->get_j()),
+        point->get_plate()->get_point_num(point->get_i(), point->get_j()),
+        -1.0*(1+dn)
+    };
+    result.push_back(elem);
+
+    elem = {
+        point->get_plate()->get_point_num(point->get_i(), point->get_j()),
+        point->get_plate()->get_point_num(point->get_i()+y_offset, point->get_j()+x_offset),
+        1.0
     };
     result.push_back(elem);
 
     elem = {
         -1,
-        point->get_plate()->get_point_num(point->get_j(), point->get_i()),
+        point->get_plate()->get_point_num(point->get_i(), point->get_j()),
         0.0
-    };
-    result.push_back(elem);
-
-    elem = {
-        point->get_plate()->get_point_num(point->get_j(), point->get_i()),
-        point->get_plate()->get_point_num(point->get_j(), point->get_i()),
-        1.0
     };
     result.push_back(elem);
 
