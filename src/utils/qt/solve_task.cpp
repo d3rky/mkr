@@ -59,6 +59,8 @@ void solve(const float dx, const float dy, const float dt, const float t, Plate*
 
         QApplication::sendEvent(main_window, new ResultEvent(initial_matr));
 
+        qApp->processEvents();
+
         cout<<endl;
         cout<<"/////////////////////////////////////////////////////////////////////"<<endl;
         cout<<"Start printing result matrix after "<<curr_t<<" units of simulation"<<endl<<endl;
