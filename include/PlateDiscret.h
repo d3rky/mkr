@@ -96,6 +96,10 @@ class PlateDiscret {
          */
         const int get_point_j(const int point_num);
 
+        const float get_dx();
+
+        const float get_dy();
+
         /**
          * Из модели получим матрицу
          *

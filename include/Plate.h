@@ -60,25 +60,6 @@ class Plate {
          */
         vector<PlateCondition> conditions;
 
-        ////////////////////////////////////////////////////////////////////////
-
-        /**
-         * По координатам точки возвращаем сторону пластины
-         *
-         * @param x {float} координата x точки
-         * @param dx {const float} шаг дискретизации по x
-         * @param y {float} координата y точки
-         * @param dy {const float} шаг дискретизации по y
-         *
-         * @return {PlateSide} сторона пластины (верхняя, нижняя, правая, левая)
-         */
-        PlateSide get_plate_side(
-            float x,
-            const float dx,
-            float y,
-            const float dy
-        );
-
     public:
 
         /**
@@ -110,20 +91,19 @@ class Plate {
         void add_condition(PlateCondition cond);
 
         /**
-         * Проверка, является ли переданная точка граничное, при заданном шаге
-         *      дискретизации
+         * По координатам точки возвращаем сторону пластины
          *
          * @param x {float} координата x точки
          * @param dx {const float} шаг дискретизации по x
          * @param y {float} координата y точки
          * @param dy {const float} шаг дискретизации по y
          *
-         * @return {const int} тип границы
+         * @return {PlateSide} сторона пластины (верхняя, нижняя, правая, левая)
          */
-        const int is_boundary_point(
-            float x, 
-            const float dx, 
-            float y, 
+        PlateSide get_plate_side(
+            float x,
+            const float dx,
+            float y,
             const float dy
         );
 

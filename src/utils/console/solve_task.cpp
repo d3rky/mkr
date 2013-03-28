@@ -39,6 +39,14 @@ void solve(const float dx, const float dy, const float dt, const float t, Plate*
     //Из текущей модели получаем матрицу, которую и будем решать
     Matrix* matrix = plate_discret->get_matrix();
 
+    matrix->print();
+
+    result = solver->solve(matrix);
+
+    plate_discret->set_initial_values(result);
+
+    plate_discret->print(cout);
+
     //Решаем уравнение
     for(float curr_t=0.0; curr_t<t; curr_t+=dt) {
         result = solver->solve(matrix);

@@ -35,8 +35,8 @@ vector<MatrixElement> NeumanBoundaryCondition::get_value(MkrPoint* point, const 
     int y_offset = 0;
 
     elem = {
-        point->get_plate()->get_point_num(point->get_j(), point->get_i()),
-        point->get_plate()->get_point_num(point->get_j(), point->get_i()),
+        point->get_plate()->get_point_num(point->get_i(), point->get_j()),
+        point->get_plate()->get_point_num(point->get_i(), point->get_j()),
         1.0
     };
     result.push_back(elem);
@@ -57,16 +57,16 @@ vector<MatrixElement> NeumanBoundaryCondition::get_value(MkrPoint* point, const 
     };
 
     elem = {
-        point->get_plate()->get_point_num(point->get_j(), point->get_i()),
-        point->get_plate()->get_point_num(point->get_j()+y_offset, point->get_i()+x_offset),
+        point->get_plate()->get_point_num(point->get_i(), point->get_j()),
+        point->get_plate()->get_point_num(point->get_i()+y_offset, point->get_j()+x_offset),
         -1.0
     };
     result.push_back(elem);
 
     elem = {
         -1,
-        point->get_plate()->get_point_num(point->get_j(), point->get_i()),
-        (this->k*dt + this->b)*this->direction
+        point->get_plate()->get_point_num(point->get_i(), point->get_j()),
+        (this->k*dt + this->b)*this->direction*point->get_plate()->get_dx()
     };
     result.push_back(elem);
 

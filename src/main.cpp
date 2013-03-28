@@ -52,8 +52,8 @@ int main(int argc, char** argv) {
     const float h = HEIGHT;
     
     //Шаги дискретизации
-    const float dx = 1;
-    const float dy = 1;
+    const float dx = 0.5;
+    const float dy = 0.5;
     const float dt = 1;
 
     //начальное значение

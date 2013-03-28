@@ -27,7 +27,7 @@ Plate* describe_task(
     PlateCondition down_cond = {
         DOWN, 
         new NeumanBoundaryCondition(0, 0, POSITIVE), 
-        new Boundary(1, w)
+        new Boundary(0, w)
     };
     PlateCondition up_right_cond = {
         UP,
@@ -37,17 +37,17 @@ Plate* describe_task(
     PlateCondition up_left_cond = {
         UP,
         new DerichleBoundaryCondition(0, 500),
-        new Boundary(1, w/2)
+        new Boundary(0, w/2)
     };
     PlateCondition left_cond = {
         LEFT,
         new DerichleBoundaryCondition(0, 500),
-        new Boundary(1, h)
+        new Boundary(0, h)
     };
     PlateCondition right_cond = {
         RIGHT,
         new DerichleBoundaryCondition(0, 500),
-        new Boundary(1, h)
+        new Boundary(0, h)
     };
 
     cout<<"OK"<<endl;

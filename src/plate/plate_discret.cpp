@@ -32,21 +32,22 @@ PlateDiscret::PlateDiscret(
     int points_in_row = this->get_num_of_points(this->width, dx),
         points_in_col = this->get_num_of_points(this->height, dy);
 
-    this->i = points_in_row;
-    this->j = points_in_col;
+    this->i = points_in_row+1;
+    this->j = points_in_col+1;
 
-    float curr_step_x=1.0,
-          curr_step_y=1.0;
+    float curr_step_x=0.0,
+          curr_step_y=0.0;
 
     //создаем точки
-    for(int i=0; i<points_in_col; i++) {
+    for(int i=0; i<=points_in_col; i++) {
 
         vector<MkrPoint*> points_row;
 
-        for(int j=0; j<points_in_row; j++) {
+        for(int j=0; j<=points_in_row; j++) {
 
             //Проверяем, является ли точка граничной
-            int is_boundary = plate->is_boundary_point(curr_step_x, dx, curr_step_y, dy);
+            int is_boundary = plate->get_plate_side(curr_step_x, dx, curr_step_y, dy);
+
             AbstractBoundaryCondition* cond = 0;
             float initial = 0;
 
@@ -59,7 +60,7 @@ PlateDiscret::PlateDiscret(
             initial = plate->get_initial_cond();
 
             points_row.push_back(new MkrPoint(
-                curr_step_x, curr_step_y, j, i, is_boundary, initial, cond, this
+                curr_step_x, curr_step_y, i, j, is_boundary, initial, cond, this
             ));
 
             curr_step_x += this->dx;
@@ -67,7 +68,7 @@ PlateDiscret::PlateDiscret(
 
         this->points.push_back(points_row);
 
-        curr_step_x = 1.0;
+        curr_step_x = 0.0;
         curr_step_y += this->dy;
     }
 };
@@ -82,6 +83,14 @@ int PlateDiscret::get_i() {
 
 int PlateDiscret::get_j() {
     return this->j;
+};
+
+const float PlateDiscret::get_dx() {
+    return this->dx;
+};
+
+const float PlateDiscret::get_dy() {
+    return this->dy;
 };
 
 const int PlateDiscret::get_point_num(const int i, const int j) {
@@ -115,51 +124,51 @@ Matrix* PlateDiscret::get_matrix() {
             } else {
 
                 matrix_element = {
-                    this->get_point_num((*p_it)->get_j(), (*p_it)->get_i()),
-                    this->get_point_num((*p_it)->get_j(), (*p_it)->get_i()),
+                    this->get_point_num((*p_it)->get_i(), (*p_it)->get_j()),
+                    this->get_point_num((*p_it)->get_i(), (*p_it)->get_j()),
                     dx2dy2
                 };
                 matrix_part.push_back(matrix_element);
 
                 matrix_element = {
-                    this->get_point_num((*p_it)->get_j(), (*p_it)->get_i()),
-                    this->get_point_num((*p_it)->get_j(), (*p_it)->get_i()+1),
+                    this->get_point_num((*p_it)->get_i(), (*p_it)->get_j()),
+                    this->get_point_num((*p_it)->get_i(), (*p_it)->get_j()+1),
                     -1.0*dtdy2
                 };
                 matrix_part.push_back(matrix_element);
 
                 matrix_element = {
-                    this->get_point_num((*p_it)->get_j(), (*p_it)->get_i()),
-                    this->get_point_num((*p_it)->get_j(), (*p_it)->get_i()),
+                    this->get_point_num((*p_it)->get_i(), (*p_it)->get_j()),
+                    this->get_point_num((*p_it)->get_i(), (*p_it)->get_j()),
                     2.0*(dtdy2+dtdx2)
                 };
                 matrix_part.push_back(matrix_element);
 
                 matrix_element = {
-                    this->get_point_num((*p_it)->get_j(), (*p_it)->get_i()),
-                    this->get_point_num((*p_it)->get_j(), (*p_it)->get_i()-1),
+                    this->get_point_num((*p_it)->get_i(), (*p_it)->get_j()),
+                    this->get_point_num((*p_it)->get_i(), (*p_it)->get_j()-1),
                     -1.0*dtdy2
                 };
                 matrix_part.push_back(matrix_element);
 
                 matrix_element = {
-                    this->get_point_num((*p_it)->get_j(), (*p_it)->get_i()),
-                    this->get_point_num((*p_it)->get_j()+1, (*p_it)->get_i()),
+                    this->get_point_num((*p_it)->get_i(), (*p_it)->get_j()),
+                    this->get_point_num((*p_it)->get_i()+1, (*p_it)->get_j()),
                     -1.0*dtdx2
                 };
                 matrix_part.push_back(matrix_element);
 
                 matrix_element = {
-                    this->get_point_num((*p_it)->get_j(), (*p_it)->get_i()),
-                    this->get_point_num((*p_it)->get_j()-1, (*p_it)->get_i()),
+                    this->get_point_num((*p_it)->get_i(), (*p_it)->get_j()),
+                    this->get_point_num((*p_it)->get_i()-1, (*p_it)->get_j()),
                     -1.0*dtdx2
                 };
                 matrix_part.push_back(matrix_element);
 
                 matrix_element = {
                     -1,
-                    this->get_point_num((*p_it)->get_j(), (*p_it)->get_i()),
-                    (*p_it)->get_initial_cond()
+                    this->get_point_num((*p_it)->get_i(), (*p_it)->get_j()),
+                    (*p_it)->get_initial_cond()*dx2dy2
                 };
                 matrix_part.push_back(matrix_element);
             }
@@ -171,23 +180,23 @@ Matrix* PlateDiscret::get_matrix() {
     return matrix;
 };
 
-const int PlateDiscret::get_point_j(const int point_num) {
+const int PlateDiscret::get_point_i(const int point_num) {
     return point_num/this->i;
 };
 
-const int PlateDiscret::get_point_i(const int point_num) {
-    const int j = this->get_point_j(point_num);
+const int PlateDiscret::get_point_j(const int point_num) {
+    const int j = this->get_point_i(point_num);
 
     return this->i - (((j+1) * this->i)-point_num);
 };
 
 void PlateDiscret::set_initial_values(float* values) {
-    for(int val=0; val<this->height*this->width; val++) {
+    for(int val=0; val<this->i*this->j; val++) {
 
         int i = this->get_point_i(val),
             j = this->get_point_j(val);
 
-        this->points[j][i]->set_initial_cond(values[val]);
+        this->points[i][j]->set_initial_cond(values[val]);
     }
 };
 
@@ -218,9 +227,10 @@ Matrix* PlateDiscret::get_initial_matrix() {
             p_it != it->end();
             ++p_it
         ) {
+
             matrix_element = {
-                (*p_it)->get_j(),
                 (*p_it)->get_i(),
+                (*p_it)->get_j(),
                 (*p_it)->get_initial_cond()
             };
 

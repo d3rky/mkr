@@ -71,7 +71,7 @@ const int Matrix::get_height() {
 };
 
 void Matrix::print() {
-    for(int i=0; i<this->height; i++) {
+    for(int i=this->height-1; i>=0; i--) {
         for(int j=0; j<this->width; j++) {
             cout<<this->matrix[i][j]<<"\t";
         }

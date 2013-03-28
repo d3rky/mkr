@@ -25,23 +25,16 @@ vector<MatrixElement> DerichleBoundaryCondition::get_value(MkrPoint* point, cons
     MatrixElement elem;
 
     elem = {
-        point->get_plate()->get_point_num(point->get_j(), point->get_i()),
-        point->get_plate()->get_point_num(point->get_j(), point->get_i()),
+        point->get_plate()->get_point_num(point->get_i(), point->get_j()),
+        point->get_plate()->get_point_num(point->get_i(), point->get_j()),
         1.0
     };
-
-    #ifdef DEBUG
-        cout<<endl<<"Get value for DerichleBoundaryCondition: "<<endl;
-        cout<<" - Point j "<<point->get_j()<<" i "<<point->get_i()<<endl;
-        cout<<" - Point num "<<point->get_plate()->get_point_num(point->get_j(), point->get_i())<<endl;
-        cout<<" - value "<<this->k*dt + this->b<<endl;
-    #endif
 
     result.push_back(elem);
 
     elem = {
         -1,
-        point->get_plate()->get_point_num(point->get_j(), point->get_i()),
+        point->get_plate()->get_point_num(point->get_i(), point->get_j()),
         this->k*dt + this->b
     };
 

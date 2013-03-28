@@ -6,31 +6,6 @@ using namespace std;
 
 ////////////////////////////////////////////////////////////////////////////////
 /**
- * private functions
- */
-
-PlateSide Plate::get_plate_side(
-    float x, const float dx, float y, const float dy
-) {
-
-    if(y == 1.0) {
-        return DOWN;
-    } else if(y+dx > this->get_height()) {
-        return UP;
-    } else {
-        if(x == 1.0) {
-            return LEFT;
-        } else if(x+dx > this->get_width()) {
-            return RIGHT;
-        } else {
-            return NOT_SIDE;
-        }
-    }
-
-};
-
-////////////////////////////////////////////////////////////////////////////////
-/**
  * constructors
  */
 
@@ -86,27 +61,31 @@ AbstractBoundaryCondition* Plate::get_condition(
     }
 
     return cond;
-}
-
-const int Plate::is_boundary_point(
-    float x, const float dx, float y, const float dy
-) {
-    int is_boundary = NOT_SIDE;
-
-    if(y == 1.0) {
-        is_boundary = DOWN;
-    } else if (x == 1.0) {
-        is_boundary = LEFT;
-    } else if(y+dy > this->height) {
-        is_boundary = UP;
-    } else if(x+dx > this->width) {
-        is_boundary = RIGHT;
-    }
-
-    return is_boundary;
-
 };
 
 PlateDiscret* Plate::descretize(const float dx, const float dy, const float dt) {
     return new PlateDiscret(this, dx, dy, dt);
+};
+
+PlateSide Plate::get_plate_side(
+    float x, const float dx, float y, const float dy
+) {
+
+    PlateSide plate_side = NOT_SIDE;
+
+    if(y == 0.0) {
+        plate_side = DOWN;
+    } else if(y+dy > this->get_height()) {
+        plate_side = UP;
+    } else {
+        if(x == 0.0) {
+            plate_side = LEFT;
+        } else if(x+dx > this->get_width()) {
+            plate_side = RIGHT;
+        } else {
+            plate_side = NOT_SIDE;
+        }
+    }
+
+    return plate_side;
 };
