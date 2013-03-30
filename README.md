@@ -22,4 +22,4 @@ You can also set initial condition of the set. There are two types of boundary c
 DEPENDING
 =========
 
-Now it depends only on Qt 4.8
+Depends on Qt 4.8 and gcc >= 4.3
