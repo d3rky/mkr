@@ -59,13 +59,13 @@ int main(int argc, char** argv) {
     //начальное значение
     float initial = 10;
 
-    Properties prop = {
+    Properties prop = Properties(
         w, h,
         dx, dy, dt,
         initial,
         eps,
         t
-    };
+    );
 
     start_calculate(prop);
 };

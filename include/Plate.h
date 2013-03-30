@@ -31,7 +31,9 @@ enum PlateSide {
 struct PlateCondition {
     PlateSide type;
     AbstractBoundaryCondition* condition;
-    Boundary* boundary; 
+    Boundary* boundary;
+    PlateCondition(PlateSide side, AbstractBoundaryCondition* cond, Boundary* bound)
+    : type(side), condition(cond), boundary(bound) {}
 };
 
 /**

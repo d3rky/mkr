@@ -14,7 +14,7 @@ BalanceBoundaryCondition::BalanceBoundaryCondition(): AbstractBoundaryCondition(
  */
 vector<MatrixElement> BalanceBoundaryCondition::get_value(MkrPoint* point, const float dt=0) {
     vector<MatrixElement> result;
-    MatrixElement elem;
+    MatrixElement elem = MatrixElement(0.0, 0.0, 0.0);
 
     int x_offset = 0;
     int y_offset = 0;
@@ -42,25 +42,25 @@ vector<MatrixElement> BalanceBoundaryCondition::get_value(MkrPoint* point, const
         dn = point->get_plate()->get_dy();
     }
 
-    elem = {
+    elem = MatrixElement(
         point->get_plate()->get_point_num(point->get_i(), point->get_j()),
         point->get_plate()->get_point_num(point->get_i(), point->get_j()),
         -1.0*(1+dn)
-    };
+    );
     result.push_back(elem);
 
-    elem = {
+    elem = MatrixElement(
         point->get_plate()->get_point_num(point->get_i(), point->get_j()),
         point->get_plate()->get_point_num(point->get_i()+y_offset, point->get_j()+x_offset),
         1.0
-    };
+    );
     result.push_back(elem);
 
-    elem = {
+    elem = MatrixElement(
         -1,
         point->get_plate()->get_point_num(point->get_i(), point->get_j()),
         0.0
-    };
+    );
     result.push_back(elem);
 
     return result;

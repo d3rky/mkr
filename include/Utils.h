@@ -19,6 +19,8 @@ struct Properties {
     float eps;
 
     float t;
+    Properties(float w, float h, float dx, float dy, float dt, float i, float eps, float t) 
+    : w(w), h(h), dx(dx), dy(dy), dt(dt), initial(i), eps(eps), t(t) {} 
 };
 
 /**
@@ -36,6 +38,7 @@ struct MatrixElement {
     int i;
     int j;
     float value;
+    MatrixElement(int i, int j, float value) : i(i), j(j), value(value) {}
 };
 
 /**

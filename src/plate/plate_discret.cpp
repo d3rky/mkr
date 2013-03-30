@@ -115,7 +115,7 @@ Matrix* PlateDiscret::get_matrix() {
             ++p_it
         ) {
             vector<MatrixElement> matrix_part; 
-            MatrixElement matrix_element;
+            MatrixElement matrix_element = MatrixElement(0.0, 0.0, 0.0);
 
             //Если точка является граничной, то берем разностную схему из граничного условия,
             //Если нет, то формируем разностную схему исходя из уравнения теплопроводности
@@ -123,53 +123,53 @@ Matrix* PlateDiscret::get_matrix() {
                 matrix_part = (*p_it)->get_boundary_cond_value(this->dt);
             } else {
 
-                matrix_element = {
+                matrix_element = MatrixElement(
                     this->get_point_num((*p_it)->get_i(), (*p_it)->get_j()),
                     this->get_point_num((*p_it)->get_i(), (*p_it)->get_j()),
                     dx2dy2
-                };
+                );
                 matrix_part.push_back(matrix_element);
 
-                matrix_element = {
+                matrix_element = MatrixElement(
                     this->get_point_num((*p_it)->get_i(), (*p_it)->get_j()),
                     this->get_point_num((*p_it)->get_i(), (*p_it)->get_j()+1),
                     -1.0*dtdy2
-                };
+                );
                 matrix_part.push_back(matrix_element);
 
-                matrix_element = {
+                matrix_element = MatrixElement(
                     this->get_point_num((*p_it)->get_i(), (*p_it)->get_j()),
                     this->get_point_num((*p_it)->get_i(), (*p_it)->get_j()),
                     2.0*(dtdy2+dtdx2)
-                };
+                );
                 matrix_part.push_back(matrix_element);
 
-                matrix_element = {
+                matrix_element = MatrixElement(
                     this->get_point_num((*p_it)->get_i(), (*p_it)->get_j()),
                     this->get_point_num((*p_it)->get_i(), (*p_it)->get_j()-1),
                     -1.0*dtdy2
-                };
+                );
                 matrix_part.push_back(matrix_element);
 
-                matrix_element = {
+                matrix_element = MatrixElement(
                     this->get_point_num((*p_it)->get_i(), (*p_it)->get_j()),
                     this->get_point_num((*p_it)->get_i()+1, (*p_it)->get_j()),
                     -1.0*dtdx2
-                };
+                );
                 matrix_part.push_back(matrix_element);
 
-                matrix_element = {
+                matrix_element = MatrixElement(
                     this->get_point_num((*p_it)->get_i(), (*p_it)->get_j()),
                     this->get_point_num((*p_it)->get_i()-1, (*p_it)->get_j()),
                     -1.0*dtdx2
-                };
+                );
                 matrix_part.push_back(matrix_element);
 
-                matrix_element = {
+                matrix_element = MatrixElement(
                     -1,
                     this->get_point_num((*p_it)->get_i(), (*p_it)->get_j()),
                     (*p_it)->get_initial_cond()*dx2dy2
-                };
+                );
                 matrix_part.push_back(matrix_element);
             }
 
@@ -218,7 +218,7 @@ void PlateDiscret::print(ostream& stream) {
 
 Matrix* PlateDiscret::get_initial_matrix() {
     Matrix* matr = new Matrix(this->get_i(), this->get_j());
-    MatrixElement matrix_element;
+    MatrixElement matrix_element = MatrixElement(0.0, 0.0, 0.0);
 
     vector<vector<MkrPoint*> >::reverse_iterator it = this->points.rbegin();
 
@@ -228,11 +228,11 @@ Matrix* PlateDiscret::get_initial_matrix() {
             ++p_it
         ) {
 
-            matrix_element = {
+            matrix_element = MatrixElement(
                 (*p_it)->get_i(),
                 (*p_it)->get_j(),
                 (*p_it)->get_initial_cond()
-            };
+            );
 
             matr->add(matrix_element);
         }

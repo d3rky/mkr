@@ -25,31 +25,31 @@ Plate* describe_task(
     cout<<endl<<"Creating conditions...";
     
     //Задаем граничные условия
-    PlateCondition down_cond = {
+    PlateCondition down_cond = PlateCondition(
         DOWN, 
         new NeumanBoundaryCondition(0, 0, POSITIVE), 
         new Boundary(0, w)
-    };
-    PlateCondition up_right_cond = {
+    );
+    PlateCondition up_right_cond = PlateCondition(
         UP,
         new NeumanBoundaryCondition(0, 0, POSITIVE),
         new Boundary(w/2.0, w)
-    };
-    PlateCondition up_left_cond = {
+    );
+    PlateCondition up_left_cond = PlateCondition(
         UP,
         new DerichleBoundaryCondition(0, 500),
         new Boundary(0, w/2)
-    };
-    PlateCondition left_cond = {
+    );
+    PlateCondition left_cond = PlateCondition(
         LEFT,
         new DerichleBoundaryCondition(0, 500),
         new Boundary(0, h)
-    };
-    PlateCondition right_cond = {
+    );
+    PlateCondition right_cond = PlateCondition(
         RIGHT,
         new DerichleBoundaryCondition(0, 500),
         new Boundary(0, h)
-    };
+    );
 
     cout<<"OK"<<endl;
 
