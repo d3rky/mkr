@@ -71,13 +71,13 @@ void MainWindow::update_draw(Matrix* matr) {
  */
 MainWindow::MainWindow(Properties prop, QWidget* parent) 
 : QWidget(parent) {
-    this->prop = {
+    this->prop = Properties (
         prop.w, prop.h,
         prop.dx, prop.dy, prop.dt,
         prop.initial,
         prop.eps,
         prop.t
-    };
+    );
 
     QGridLayout* layout = new QGridLayout();
 
