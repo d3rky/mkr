@@ -20,7 +20,8 @@ struct Properties {
 
     float t;
     Properties(float w, float h, float dx, float dy, float dt, float i, float eps, float t) 
-    : w(w), h(h), dx(dx), dy(dy), dt(dt), initial(i), eps(eps), t(t) {} 
+    : w(w), h(h), dx(dx), dy(dy), dt(dt), initial(i), eps(eps), t(t) {};
+    Properties() {}
 };
 
 /**
